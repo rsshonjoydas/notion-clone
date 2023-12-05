@@ -1,4 +1,5 @@
 import { ClerkProvider } from '@clerk/nextjs';
+import { dark } from '@clerk/themes';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import * as React from 'react';
@@ -66,9 +67,44 @@ export const metadata: Metadata = {
   manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
+const localization = {
+  socialButtonsBlockButton: 'Sign In with {{provider|titleize}}',
+  signUp: {
+    start: {
+      subtitle: '',
+    },
+    emailCode: {
+      subtitle: 'to access {{applicationName}}',
+    },
+  },
+  signIn: {
+    start: {
+      subtitle: '',
+    },
+    emailCode: {
+      subtitle: 'to access {{applicationName}}',
+    },
+  },
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+        layout: {
+          socialButtonsPlacement: 'bottom',
+          termsPageUrl: `${siteConfig.url}/terms`,
+          helpPageUrl: `${siteConfig.url}/help`,
+          logoImageUrl: './logo-dark.svg',
+          privacyPageUrl: `${siteConfig.url}/privacy`,
+        },
+        elements: {
+          formButtonPrimary: 'bg-purple-500 hover:bg-purple-400 text-sm normal-case',
+        },
+      }}
+      localization={localization}
+    >
       <html lang='en' suppressHydrationWarning>
         <body className={inter.className}>
           <ThemeProvider
