@@ -10,9 +10,8 @@ export type SiteConfig = {
 };
 
 export const siteConfig: SiteConfig = {
-  name: 'RS Shonjoy',
-  description:
-    'An open source application built using the new router, server components and everything new in Next.js 13.',
+  name: 'Jotion',
+  description: 'The connected workspace where better, faster work happens.',
   url: `${process.env.NEXT_PUBLIC_APP_URL}`,
   ogImage: 'https://redolence.com/og.jpg',
   links: {

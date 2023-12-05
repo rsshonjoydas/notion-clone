@@ -3,8 +3,9 @@ import { Inter } from 'next/font/google';
 import * as React from 'react';
 
 import { siteConfig } from '@/config/site';
-import { absoluteUrl, cn } from '@/lib/utils';
+import { absoluteUrl } from '@/lib/utils';
 
+import { ThemeProvider } from '@/components/providers/theme-provider';
 import '@/styles/index.scss';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -48,21 +49,35 @@ export const metadata: Metadata = {
     creator: '@rsshonjoydas',
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
+    icon: [
+      {
+        media: '(prefers-color-scheme: light)',
+        url: '/logo.svg',
+        href: '/logo.svg',
+      },
+      {
+        media: '(prefers-color-scheme: dark)',
+        url: '/logo-dark.svg',
+        href: '/logo-dark.svg',
+      },
+    ],
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en'>
-      <body
-        suppressHydrationWarning
-        className={cn('min-h-screen bg-secondary font-sans antialiased', inter.className)}
-      >
-        {children}
+    <html lang='en' suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+          storageKey='Jotion-theme-2'
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
